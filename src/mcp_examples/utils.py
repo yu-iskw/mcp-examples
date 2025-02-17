@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import requests
 from google import genai
 from google.genai import types as genai_types
 from mcp import types as mcp_types
@@ -48,3 +49,12 @@ def to_gemini_tool(mcp_tool: mcp_types.Tool) -> genai_types.Tool:
         ),
     )
     return genai_types.Tool(function_declarations=[function])
+
+
+async def request_get(url: str) -> requests.Response:
+    """
+    Request the given URL and return the response.
+    """
+    response = requests.get(url)
+    response.raise_for_status()
+    return response

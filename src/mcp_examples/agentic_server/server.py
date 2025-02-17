@@ -16,8 +16,9 @@ import os
 
 from dotenv import load_dotenv
 from google import genai
-from loguru import logger
 from mcp.server.fastmcp import FastMCP
+
+from mcp_examples.agentic_server.agent import ResearchWorkflow, ResearchWorkflowState
 
 # Initialize FastMCP server
 mcp = FastMCP("math")
@@ -25,22 +26,20 @@ mcp = FastMCP("math")
 load_dotenv()  # load environment variables from .env
 
 client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
+graph_builder = ResearchWorkflow(genai_client=client).get_graph_builder()
+graph = graph_builder.compile()
 
 
 @mcp.tool()
-async def translate(target_language: str, text: str) -> str:
-    """Translate the given text to the target language.
+async def research(research_topic: str) -> str:
+    """Research the given topic.
 
     Args:
-        target_language: The target language
-        text: The text to translate
+        research_topic: The topic to research
     """
-    response = client.models.generate_content(
-        model="gemini-2.0-flash",
-        contents=[
-            f"Translate the following text to {target_language}: {text}"],
-    )
-    return response.text
+    state = ResearchWorkflowState(research_topic=research_topic)
+    response = await graph.ainvoke(state)
+    return response.summary
 
 
 if __name__ == "__main__":
