@@ -37,7 +37,7 @@ jobs:
       run:
         shell: bash
     env:
-      PYTHON_PACKAGE_NAME: "your pythohn pacakge"
+      PYTHON_PACKAGE_NAME: your pythohn pacakge
     steps:
       - uses: actions/checkout@v4
       - name: Set up Python

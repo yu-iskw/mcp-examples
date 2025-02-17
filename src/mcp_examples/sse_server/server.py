@@ -83,6 +83,8 @@ def main(port: int, transport: str) -> int:
         )
 
         import uvicorn
+
+        # trunk-ignore(bandit/B104)
         uvicorn.run(starlette_app, host="0.0.0.0", port=port)
     else:
         from mcp.server.stdio import stdio_server
