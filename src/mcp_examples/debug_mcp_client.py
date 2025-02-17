@@ -74,13 +74,14 @@ class MCPClient:
             contents=messages,
             config=genai_types.GenerateContentConfig(
                 tools=genai_tools,
+                automatic_function_calling=genai_types.AutomaticFunctionCallingConfig(
+                    disable=False,
+                ),
             ),
         )
         logger.debug(f"Response: {response}")
 
         # Process response and handle tool calls
-        tool_results = []
-        final_text = []
         final_text = []
         tool_results = []
         if response.candidates:
@@ -102,7 +103,10 @@ class MCPClient:
                                     {"call": tool_name, "result": result}
                                 )
                                 final_text.append(
-                                    f"[Calling tool {tool_name} with args {tool_args}]"
+                                    f"[Calling tool {tool_name} with args {tool_args}, result: {result}]"
+                                )
+                                logger.debug(
+                                    f"Tool {tool_name} called with args {tool_args}, result: {result}"
                                 )
                             else:
                                 final_text.append(
