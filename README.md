@@ -24,6 +24,14 @@ This will create a virtual environment and install all necessary dependencies fo
 
 The examples are categorized to showcase different aspects of MCP and its capabilities.
 
+### Debug Client
+
+We have a debugging MCP client with a MCP server.
+
+```bash
+uv run python src/mcp_examples/debug_mcp_client.py src/mcp_examples/agentic_server/server.py
+```
+
 ### Simple Examples
 
 - [src/mcp_examples/weather/server.py](src/mcp_examples/weather/server.py): This is the foundational example from the MCP framework documentation. It demonstrates the basic structure of an MCP server, including defining tools and running the server. It's a great starting point to understand the core components of an MCP application.
