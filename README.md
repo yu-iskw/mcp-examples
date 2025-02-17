@@ -31,5 +31,9 @@ The examples are categorized to showcase different aspects of MCP and its capabi
 
 ### Advanced Examples with LLM/Agent
 
+MCP servers are versatile and can handle a wide range of tasks.
+They are suitable for simple operations like calling APIs or fetching data from databases, but also powerful enough to orchestrate complex workflows involving LLMs and agents.
+This flexibility makes them ideal for building applications ranging from basic data retrieval to sophisticated agentic systems.
+
 - [src/mcp_examples/llm_server/server.py](src/mcp_examples/llm_server/server.py): This example demonstrates how to incorporate Large Language Models (LLMs) into an MCP server. It showcases how you can leverage the power of LLMs within the MCP framework to build intelligent applications that can process and generate natural language.
 - [src/mcp_examples/agentic_server/server.py](src/mcp_examples/agentic_server/server.py): This advanced example illustrates the creation of agentic systems using MCP. It shows how to design and implement workflows for agents within the MCP framework, enabling you to build complex, autonomous applications that can perform tasks and interact with the environment.
