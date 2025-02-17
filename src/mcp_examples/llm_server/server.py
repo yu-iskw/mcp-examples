@@ -35,6 +35,7 @@ async def translate(target_language: str, text: str) -> str:
         target_language: The target language
         text: The text to translate
     """
+    logger.info(f"Translating text to {target_language}: {text}")
     response = client.models.generate_content(
         model="gemini-2.0-flash",
         contents=[

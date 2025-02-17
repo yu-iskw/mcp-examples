@@ -55,6 +55,6 @@ async def request_get(url: str) -> requests.Response:
     """
     Request the given URL and return the response.
     """
-    response = requests.get(url)
+    response = requests.get(url, timeout=10)
     response.raise_for_status()
     return response
