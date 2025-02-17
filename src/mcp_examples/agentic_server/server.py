@@ -26,6 +26,7 @@ mcp = FastMCP("math")
 load_dotenv()  # load environment variables from .env
 
 client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
+# client = genai.Client(vertexai=True, location="us-central1")
 graph_builder = ResearchWorkflow(genai_client=client).get_graph_builder()
 graph = graph_builder.compile()
 
@@ -39,7 +40,7 @@ async def research(research_topic: str) -> str:
     """
     state = ResearchWorkflowState(research_topic=research_topic)
     response = await graph.ainvoke(state)
-    return response.summary
+    return response["summary"]
 
 
 if __name__ == "__main__":

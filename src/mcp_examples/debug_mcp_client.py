@@ -2,6 +2,7 @@ import asyncio
 import os
 import sys
 from contextlib import AsyncExitStack
+from datetime import timedelta
 from typing import Optional
 
 from dotenv import load_dotenv
@@ -44,7 +45,8 @@ class MCPClient:
         )
         self.stdio, self.write = stdio_transport
         self.session = await self.exit_stack.enter_async_context(
-            ClientSession(self.stdio, self.write)
+            ClientSession(self.stdio, self.write,
+                          read_timeout_seconds=timedelta(seconds=300))
         )
 
         await self.session.initialize()

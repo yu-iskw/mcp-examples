@@ -86,13 +86,18 @@ class ResearchWorkflow:
             f"Planning the research for the topic: {state.research_topic}")
         system_prompt = textwrap.dedent(
             """
-            You are an expert research planner specializing in crafting optimal search queries. Your task is to generate the most effective search queries to comprehensively research the given topic. Consider these guidelines:
+            You are an expert research planner specializing in crafting optimal search queries.
+            Your task is to generate the most effective search queries to comprehensively research the given topic.
+            To achieve this, think deeply and step-by-step about the topic and the best way to find information.
+            These queries are crucial for the subsequent research steps, so ensure they are comprehensive and effective.
+
+            Consider these guidelines:
 
             1. Create queries that will yield diverse, high-quality information sources
             2. Use specific keywords and phrases that precisely target the topic
             3. Include both broad and narrow focus queries to capture different aspects
             4. Structure queries to avoid bias and ensure balanced coverage
-            5. Limit to a maximum of 5 queries that together provide complete coverage
+            5. Limit to a maximum of 3 queries that together provide complete coverage
 
             Return only the most essential queries that will produce the most valuable research results.
             """
@@ -138,8 +143,10 @@ class ResearchWorkflow:
 
         async def process_search_query(search_query: str) -> List[ResearchData]:
             tasks = []
-            for _search_result in search(query=search_query, max_results=5):
-                if _search_result.href.endswith("html"):
+            for _search_result in search(query=search_query, max_results=3):
+                logger.info(
+                    f"Search result: {_search_result.title} at {_search_result.href}")
+                if not _search_result.href.endswith("pdf"):
                     tasks.append(fetch_research_data(_search_result))
             results = await asyncio.gather(*tasks)
             return [result for result in results if result is not None]
