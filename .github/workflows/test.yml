@@ -53,5 +53,4 @@ jobs:
           uv venv --python 3.12
           uv pip install -e ".[dev]"
       - name: Trunk Check
-        if: github.event_name != 'push'
         uses: trunk-io/trunk-action@v1
