@@ -38,3 +38,6 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = ["black>=25.1.0", "isort>=6.0.0", "pytest>=8.3.4", "ruff>=0.9.6"]
+
+[tool.uv]
+constraint-dependencies = ["brotli>=1.2.1", "brotlicffi>=1.2.1.0"]
